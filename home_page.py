@@ -84,7 +84,7 @@ if selected == "About Me":
     with left_columns:
         file = open("Resume (2).pdf", "rb")
         st.image(image)
-        st.markdown(""":white[<b><u>HEMANT KUMAR</u></b><br>‍💻Business Analyst and SSA Tool Developer
+        st.markdown(""":white[<b><u>[HEMANT KUMAR](www.linkedin.com/in/hemant-kumar-a6045314)</u></b><br>‍💻Business Analyst and SSA Tool Developer
         <br>🏢AMAZON DEVELOPMENT CENTER
         <br>📱 +917989230543<br>
         🏙️Bangalore]""",
