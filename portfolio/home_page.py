@@ -77,6 +77,7 @@ st.markdown(
 
 left_columns, right_columns = st.columns([0.2, 0.8], gap='small')
 
+# link_din = Image.open("linkedin-logo-png-1837.png")
 # Selecting Home
 if selected == "About Me":
     # """Personal Details"""
@@ -136,7 +137,6 @@ if selected == "Work Ex":
         st.dataframe(df_experties, use_container_width=True)
 
 if selected == "Contact":
-    " [link](https://www.linkedin.com/in/hemant-kumar-a60453147/)"
     "Feel free to reach out to me by filling below form :"
     rt,md,lft = st.columns([20,60,20], gap='small')
     def validate():
@@ -150,6 +150,10 @@ if selected == "Contact":
             body = st.text_area("Request/Feedback if any")
             submitted = st.form_submit_button("Submit", on_click=validate)
             if submitted:
-                st.success("Request Submited :thumbsup:")
+                d_list = [f_name, l_name, email]
+                if ["","",""] != d_list:
+                    st.success("Request Submited :thumbsup:")
+                else:
+                    st.error(":thumbsdown: Hey Anonymous, Provide some detail boss :smile: ")
 
 
