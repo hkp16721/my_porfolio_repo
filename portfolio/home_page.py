@@ -34,8 +34,8 @@ image = Image.open("hemant.jpg")
 # option menu
 selected = option_menu(
     menu_title=None,
-    options=["Home","About Me","Work Ex", "Projects", "Achievements", "Contact"],
-    icons=["house","person","building", "folder", "trophy", "phone"],
+    options=["Home", "About Me", "Work Ex", "Projects", "Achievements", "Contact"],
+    icons=["house", "person", "building", "folder", "trophy", "phone"],
     orientation="horizontal",
     styles=""""""
 
@@ -93,7 +93,6 @@ if selected == "About Me":
         st.markdown(f"""<p><i>{about_me}</p><br><br>
                 """, unsafe_allow_html=True)
 
-
 if selected == "Projects":
     "On the way"
 
@@ -113,25 +112,44 @@ I am excited to bring my technical expertise, problem-solving abilities, and ded
                 unsafe_allow_html=True)
 
 if selected == "Work Ex":
-        left, right = st.columns([40, 60])
-        work_history = {
-            "Company": ["Cynosure", "Wipro", "Wipro", "Amazon"],
-            "Job Role": ["Guidwire Intern", "T&S Associate", "Team Leader", "BA SSA"],
-            "Year": ["(Aug-Nov)2017", "(Dec_2017-April_2019)", "(April_2019-May_2021)",
-                     "(June-2021-Currently Working)"],
-        }
+    left, right = st.columns([40, 60])
+    work_history = {
+        "Company": ["Cynosure", "Wipro", "Wipro", "Amazon"],
+        "Job Role": ["Guidwire Intern", "T&S Associate", "Team Leader", "BA SSA"],
+        "Year": ["(Aug-Nov)2017", "(Dec_2017-April_2019)", "(April_2019-May_2021)",
+                 "(June-2021-Currently Working)"],
+    }
 
-        experties = {
-            "Technology" : ["Python", "TKinter", "PySimpleGui","Streamlit","Oracle Sql", "HTML", "CSS", "JS"],
-            "Rate My Skill" : ["🌟🌟🌟🌟","🌟🌟🌟🌟","🌟🌟🌟🌟🌟","🌟🌟🌟","🌟🌟🌟","🌟🌟🌟","🌟🌟🌟","🌟🌟🌟"],
-            "Rated out of" : ["🌟🌟🌟🌟🌟","🌟🌟🌟🌟🌟","🌟🌟🌟🌟🌟","🌟🌟🌟🌟🌟","🌟🌟🌟🌟🌟","🌟🌟🌟🌟🌟","🌟🌟🌟🌟🌟","🌟🌟🌟🌟🌟"]
-        }
-        with left:
-            """Work Experience"""
-            df_wrkex = pd.DataFrame(work_history)
-            st.dataframe(df_wrkex, use_container_width=True, height=320)
-        with right:
-            """Technology Expertise Rating"""
-            df_experties = pd.DataFrame(experties)
-            st.dataframe(df_experties, use_container_width=True)
+    experties = {
+        "Technology": ["Python", "TKinter", "PySimpleGui", "Streamlit", "Oracle Sql", "HTML", "CSS", "JS"],
+        "Rate My Skill": ["🌟🌟🌟🌟", "🌟🌟🌟🌟", "🌟🌟🌟🌟🌟", "🌟🌟🌟", "🌟🌟🌟", "🌟🌟🌟", "🌟🌟🌟", "🌟🌟🌟"],
+        "Rated out of": ["🌟🌟🌟🌟🌟", "🌟🌟🌟🌟🌟", "🌟🌟🌟🌟🌟", "🌟🌟🌟🌟🌟", "🌟🌟🌟🌟🌟", "🌟🌟🌟🌟🌟",
+                         "🌟🌟🌟🌟🌟", "🌟🌟🌟🌟🌟"]
+    }
+    with left:
+        """Work Experience"""
+        df_wrkex = pd.DataFrame(work_history)
+        st.dataframe(df_wrkex, use_container_width=True, height=320)
+    with right:
+        """Technology Expertise Rating"""
+        df_experties = pd.DataFrame(experties)
+        st.dataframe(df_experties, use_container_width=True)
+
+if selected == "Contact":
+    " [link](https://www.linkedin.com/in/hemant-kumar-a60453147/)"
+    "Feel free to reach out to me by filling below form :"
+    rt,md,lft = st.columns([20,60,20], gap='small')
+    def validate():
+        d_list = [f_name, l_name, email]
+        print(d_list)
+    with md:
+        with st.form(key="form", clear_on_submit=True):
+            f_name = st.text_input("First Name", type="default")
+            l_name = st.text_input("Last Name", type="default")
+            email = st.text_input("Email", type="default")
+            body = st.text_area("Request/Feedback if any")
+            submitted = st.form_submit_button("Submit", on_click=validate)
+            if submitted:
+                st.success("Request Submited :thumbsup:")
+
 
