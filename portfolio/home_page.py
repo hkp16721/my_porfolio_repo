@@ -259,6 +259,7 @@ if selected == 'Home':
         # Appending data to the chart.
         chart.add_rows(random_rows)
         sleep(0.1)
+        i+=3
 
     status_text.text('Done!')
     chart = st.title("Hi, I am Hemant Kumar, an aspirin data scientist")
