@@ -1,5 +1,5 @@
 from time import sleep
-
+import random
 import numpy as np
 import streamlit as st
 from PIL import Image
