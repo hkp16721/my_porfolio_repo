@@ -104,9 +104,9 @@ if selected == "Projects":
     c2 = st.container()
     c3 = st.container()
     c4 = st.container()
-    p1 = Image.open("projects/p1.png")
-    p2 = Image.open("Projects/P2.png")
-    p3 = Image.open("Projects/P3.png")
+    p1 = Image.open("my_porfolio_repo/projects/p1.png")
+    p2 = Image.open("my_porfolio_repo/projects/P2.png")
+    p3 = Image.open("my_porfolio_repo/projectss/P3.png")
     with c1:
         with c1.expander("D EXTRACTER"):
             "GUI Tool, Functionality and Package used"
