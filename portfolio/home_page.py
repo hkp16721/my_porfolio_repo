@@ -262,4 +262,4 @@ if selected == 'Home':
         i+=3
 
     status_text.text('Done!')
-    chart = st.title("Hi, I am Hemant Kumar, an aspirin data scientist")
+    chart = st.title("Hi, I am Hemant Kumar, an aspiring data scientist")
