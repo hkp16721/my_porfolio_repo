@@ -1,7 +1,11 @@
+from time import sleep
+
+import numpy as np
 import streamlit as st
 from PIL import Image
 import pandas as pd
 from streamlit_option_menu import option_menu
+import smtplib
 
 # Setting page
 st.set_page_config(
@@ -45,7 +49,7 @@ selected = option_menu(
 st.markdown(
     """<style>
     img{
-    border-radius:10%;
+    border-radius:2%;
     border:0.5px solid red;
     width :100%;
     }
@@ -95,7 +99,83 @@ if selected == "About Me":
                 """, unsafe_allow_html=True)
 
 if selected == "Projects":
-    "On the way"
+    "GUI Projects"
+    c1 = st.container()
+    c2 = st.container()
+    c3 = st.container()
+    c4 = st.container()
+    p1 = Image.open("projects/p1.png")
+    p2 = Image.open("Projects/P2.png")
+    p3 = Image.open("Projects/P3.png")
+    with c1:
+        with c1.expander("D EXTRACTER"):
+            "GUI Tool, Functionality and Package used"
+            lft, rgt = st.columns([.5, .5], gap="small")
+            with lft:
+                st.image(p1)
+            with rgt:
+                st.code(body=f"""
+    import ctypes
+    import datetime
+    import os
+    import random
+    from tkinter import *
+    from tkinter import filedialog
+    from tkinter import ttk
+    import customtkinter
+    import pandas as pd
+    from CTkMessagebox import CTkMessagebox
+    from tkcalendar import Calendar
+    from selenium import webdriver
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support import expected_conditions as EC
+    from selenium.webdriver.firefox.service import Service
+    from shareplum import Site
+    from requests_negotiate_sspi import HttpNegotiateAuth
+    'This tool uses selenium to extract data , pandas and GUI to perform analysis and display the data.'""", language="python")
+    with c2:
+        with c2.expander("OUTREACH"):
+            "Project is based on 'eel' to communicate between python backend and 'HTML,CSS and JS based UI'"
+            lft1, rgt1 = st.columns([.5, .5], gap="small")
+            with lft1:
+                st.code(body="""
+import eel
+from os import getlogin
+import win32api
+import win32net
+from PySimpleGUI import popup_get_file
+import datetime
+import random
+import time
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.firefox.service import Service
+from time import sleep
+from openpyxl import load_workbook
+import pandas as pd""", language="python")
+            with rgt1:
+                st.image(p2)
+    with c3:
+        with st.expander("Portfolio"):
+            "Project is based on Streamlit, HTML and CSS"
+            lft2, rgt2 = st.columns([.5, .5], gap="small")
+            with lft2:
+                st.image(p3)
+            with rgt2:
+                st.code("""
+from time import sleep
+import numpy as np
+import streamlit as st
+from PIL import Image
+import pandas as pd
+from streamlit_option_menu import option_menu               
+                """, language='python')
+    # with c4:
+    #     lft3, rgt3 = c1.columns([.5, .5], gap="small")
 
 if selected == "Achievements":
     st.markdown("""<b><u>Achievements</u></b>
@@ -138,10 +218,14 @@ if selected == "Work Ex":
 
 if selected == "Contact":
     "Feel free to reach out to me by filling below form :"
-    rt,md,lft = st.columns([20,60,20], gap='small')
+    rt, md, lft = st.columns([20, 60, 20], gap='small')
+
+
     def validate():
         d_list = [f_name, l_name, email]
         print(d_list)
+
+
     with md:
         with st.form(key="form", clear_on_submit=True):
             f_name = st.text_input("First Name", type="default")
@@ -151,9 +235,37 @@ if selected == "Contact":
             submitted = st.form_submit_button("Submit", on_click=validate)
             if submitted:
                 d_list = [f_name, l_name, email]
-                if ["","",""] != d_list:
+                if ["", "", ""] != d_list:
                     st.success("Request Submited :thumbsup:")
                 else:
                     st.error(":thumbsdown: Hey Anonymous, Provide some detail boss :smile: ")
 
+if selected == 'Home':
+    # name = 'Hi, I am Hemant Kumar'
+    # a,b,c,d,e = st.columns([.02,.02,.02,.02,.02], gap='small')
+    # for item, cont in zip('Hi, I am Hemant Kumar'.split(), [a,b,c,d,e]):
+    #     cont.title(item)
+    #     sleep(0.5)
+    progress_bar = st.progress(0)
+    status_text = st.empty()
+    chart = st.line_chart(np.random.randn(10, 2))
 
+    for i in range(100):
+        # Update progress bar.
+        progress_bar.progress(i + 1)
+
+        new_rows = np.random.randn(10, 2)
+
+        # Update status text.
+        status_text.text(
+            'The latest random number is: %s' % new_rows[-1, 1])
+
+        # Append data to the chart.
+        chart.add_rows(new_rows)
+
+        # Pretend we're doing some computation that takes time.
+        sleep(0.1)
+
+    status_text.text('Done!')
+    chart = st.title("Hi, I am Hemant Kumar")
+    st.balloons()
