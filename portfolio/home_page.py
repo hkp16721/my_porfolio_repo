@@ -240,42 +240,89 @@ if selected == "Contact":
                 else:
                     st.error(":thumbsdown: Hey Anonymous, Provide some detail boss :smile: ")
 
+# if selected == 'Home':
+#     # name = 'Hi, I am Hemant Kumar'
+#     # a,b,c,d,e = st.columns([.02,.02,.02,.02,.02], gap='small')
+#     # for item, cont in zip('Hi, I am Hemant Kumar'.split(), [a,b,c,d,e]):
+#     #     cont.title(item)
+#     #     sleep(0.5)
+#     progress_bar = st.empty()
+#     progress_bar.progress(0)
+#     chart = st.empty()
+#     status_text = st.empty()
+#     with chart.container():
+#         chart.scatter_chart(np.random.randn(10, 3))
+#         for i in range(100):
+#             # Update progress bar.
+#             progress_bar.progress(i + 1)
+
+#             new_rows = np.random.randn(10, 3)
+
+#             # Update status text.
+#             status_text.text(
+#                 'The latest random number is: %s' % new_rows[-1, 1])
+
+#             # Append data to the chart.
+#             chart.add_rows(new_rows)
+
+#             # Pretend we're doing some computation that takes time.
+#             sleep(0.1)
+#             i+=1
+#             if i%2==0:
+#                 chart.bar_chart(new_rows)
+#             elif (i%3==0) and (i%2!=0):
+#                 chart.line_chart(new_rows)
+#             elif (i%7==0) and (i%2!=0) and (i%3!=0):
+#                 chart.area_chart(new_rows)
+#         progress_bar.empty()
+#         chart.title("Hi, I am Hemant Kumar, an aspiring data scientist")
+#         status_text.empty()
+#     # st.balloons()
 if selected == 'Home':
-    # name = 'Hi, I am Hemant Kumar'
-    # a,b,c,d,e = st.columns([.02,.02,.02,.02,.02], gap='small')
-    # for item, cont in zip('Hi, I am Hemant Kumar'.split(), [a,b,c,d,e]):
-    #     cont.title(item)
-    #     sleep(0.5)
-    progress_bar = st.empty()
-    progress_bar.progress(0)
-    chart = st.empty()
-    status_text = st.empty()
-    with chart.container():
-        chart.scatter_chart(np.random.randn(10, 3))
-        for i in range(100):
-            # Update progress bar.
-            progress_bar.progress(i + 1)
+    name = "Hi I am Hemant, an aspiring Data Scientist"
+    tt = st.empty()
+    detail = ""
+    color_list = ['green', 'red', 'blue', 'yellow', 'pink']
+    for i in name:
+            tt.title(f":{random.choice(color_list)}[{detail + i}]")
+            detail = detail + i
+            sleep(0.01)
 
-            new_rows = np.random.randn(10, 3)
-
-            # Update status text.
-            status_text.text(
-                'The latest random number is: %s' % new_rows[-1, 1])
-
-            # Append data to the chart.
-            chart.add_rows(new_rows)
-
-            # Pretend we're doing some computation that takes time.
-            sleep(0.1)
-            i+=1
-            if i%2==0:
-                chart.bar_chart(new_rows)
-            elif (i%3==0) and (i%2!=0):
-                chart.line_chart(new_rows)
-            elif (i%7==0) and (i%2!=0) and (i%3!=0):
-                chart.area_chart(new_rows)
-        progress_bar.empty()
-        chart.title("Hi, I am Hemant Kumar, an aspiring data scientist")
-        status_text.empty()
-    # st.balloons()
+    with st.expander("Lets have fun with data :balloon:"):
+        left, right = st.columns([0.3, 0.7], gap='small')
+        with left:
+            file = st.file_uploader("", type=['.xlsx', '.xlsm', '.csv'])
+            option = st.radio('', options=['Raw Data', "Line Chart", "Bar Chart","Scatter Plot"])
+            if file:
+                if '.xl' in file.name:
+                        df = pd.read_excel(file)
+                        columns = right.multiselect('Select Columns', options=df.columns, default=df.columns.tolist())
+                        with right:
+                            if option == 'Raw Data':
+                                st.dataframe(df[list(columns)])
+                            elif option == 'Line Chart':
+                                st.line_chart(df[list(columns)], x=list(columns)[0], y=list(columns)[1])
+                            elif option == 'Bar Chart':
+                                st.bar_chart(df[list(columns)], x=list(columns)[0], y=list(columns)[1])
+                            elif option == 'Scatter Plot':
+                                st.scatter_chart(df[list(columns)], x=list(columns)[0], y=list(columns)[1])
+                            elif option == 'Pivot':
+                                "It will take first column as Index and Second column as Value"
+                                st.dataframe(df.pivot_table(values=columns[1], aggfunc='sum'))
+                            st.download_button('Download Data', data=df.to_csv(index=False).encode('utf-8'), file_name="Formated_data.csv")
+                elif '.csv' in file.name:
+                        df = pd.read_csv(file)
+                        columns = right.multiselect('Select Columns', options=df.columns, default=df.columns)
+                        with right:
+                            if option == 'Raw Data':
+                                st.dataframe(df[list(columns)])
+                            elif option == 'Line Chart':
+                                st.line_chart(df[list(columns)], x=list(columns)[0], y=list(columns)[1])
+                            elif option == 'Bar Chart':
+                                st.bar_chart(df[list(columns)], x=list(columns)[0], y=list(columns)[1])
+                            elif option == 'Scatter Plot':
+                                st.scatter_chart(df[list(columns)], x=list(columns)[0], y=list(columns)[1])
+                            elif option == 'Pivot':
+                                "It will take first column as Index and Second column as Value"
+                                st.dataframe(df.pivot_table(values=columns[1], aggfunc='sum'))
 
