@@ -246,20 +246,36 @@ if selected == 'Home':
     # for item, cont in zip('Hi, I am Hemant Kumar'.split(), [a,b,c,d,e]):
     #     cont.title(item)
     #     sleep(0.5)
-    progress_bar = st.progress(0)
+    progress_bar = st.empty()
+    progress_bar.progress(0)
+    chart = st.empty()
     status_text = st.empty()
-    chart = st.scatter_chart(np.random.randn(10, 3))
+    with chart.container():
+        chart.scatter_chart(np.random.randn(10, 3))
+        for i in range(100):
+            # Update progress bar.
+            progress_bar.progress(i + 1)
 
-    for i in range(100):
-        # Updating progress bar.
-        progress_bar.progress(i + 1)
+            new_rows = np.random.randn(10, 3)
 
-        random_rows = np.random.randn(10, 3)
-        status_text.text('The latest random number is: %s' % random_rows[-1, 1])
-        # Appending data to the chart.
-        chart.add_rows(random_rows)
-        sleep(0.1)
-        i+=3
+            # Update status text.
+            status_text.text(
+                'The latest random number is: %s' % new_rows[-1, 1])
 
-    status_text.text('Done!')
-    chart = st.title("Hi, I am Hemant Kumar, an aspiring data scientist")
+            # Append data to the chart.
+            chart.add_rows(new_rows)
+
+            # Pretend we're doing some computation that takes time.
+            sleep(0.1)
+            i+=1
+            if i%2==0:
+                chart.bar_chart(new_rows)
+            elif (i%3==0) and (i%2!=0):
+                chart.line_chart(new_rows)
+            elif (i%7==0) and (i%2!=0) and (i%3!=0):
+                chart.area_chart(new_rows)
+        progress_bar.empty()
+        chart.title("Hi, I am Hemant Kumar, an aspiring data scientist")
+        status_text.empty()
+    # st.balloons()
+
