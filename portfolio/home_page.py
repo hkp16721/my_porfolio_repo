@@ -104,7 +104,7 @@ if selected == "Projects":
     c2 = st.container()
     c3 = st.container()
     c4 = st.container()
-    p1 = Image.open("p1.png")
+    p1 = Image.open("P1.png")
     p2 = Image.open("P2.png")
     p3 = Image.open("P3.png")
     with c1:
