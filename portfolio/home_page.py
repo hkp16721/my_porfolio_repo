@@ -255,7 +255,7 @@ if selected == 'Home':
         progress_bar.progress(i + 1)
 
         random_rows = np.random.randn(10, 3)
-        status_text.text('The latest random number is: %s' % new_rows[-1, 1])
+        status_text.text('The latest random number is: %s' % random_rows[-1, 1])
         # Appending data to the chart.
         chart.add_rows(random_rows)
         sleep(0.1)
