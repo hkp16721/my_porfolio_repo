@@ -286,7 +286,7 @@ if selected == 'Home':
     for i in name:
             tt.title(f":{random.choice(color_list)}[{detail + i}]")
             detail = detail + i
-            sleep(0.01)
+            sleep(0.06)
 
     with st.expander("Lets have fun with data :balloon:"):
         left, right = st.columns([0.3, 0.7], gap='small')
