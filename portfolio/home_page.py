@@ -288,11 +288,11 @@ if selected == 'Home':
             detail = detail + i
             sleep(0.06)
 
-    with st.expander("Lets have fun with data :balloon:"):
+    with st.expander("Lets have some fun with data :balloon:"):
         left, right = st.columns([0.3, 0.7], gap='small')
         with left:
             file = st.file_uploader("", type=['.xlsx', '.xlsm', '.csv'])
-            option = st.radio('', options=['Raw Data', "Line Chart", "Bar Chart","Scatter Plot"])
+            option = st.radio('', options=['Raw Data', "Line Chart", "Bar Chart","Scatter Plot", 'Pivot'])
             if file:
                 if '.xl' in file.name:
                         df = pd.read_excel(file)
@@ -307,8 +307,13 @@ if selected == 'Home':
                             elif option == 'Scatter Plot':
                                 st.scatter_chart(df[list(columns)], x=list(columns)[0], y=list(columns)[1])
                             elif option == 'Pivot':
-                                "It will take first column as Index and Second column as Value"
-                                st.dataframe(df.pivot_table(values=columns[1], aggfunc='sum'))
+                                # clms = st.multiselect("Select Columns", options=df.columns, default=df.columns.tolist())
+                                value = st.multiselect("Select Values", options=df.columns, default=df.columns.tolist())
+                                index = st.multiselect("Select Rows", options=df.columns, default=df.columns.tolist())
+                                agg = st.multiselect("Select  Agg function", options=['sum','count','mean','max','average'], default=['count'])
+                                if st.button('OK'):
+                                    pivot_data = df.pivot_table(values=value, index=index, columns=columns, aggfunc=agg)
+                                    st.dataframe(pivot_data, use_container_width=True)
                             st.download_button('Download Data', data=df.to_csv(index=False).encode('utf-8'), file_name="Formated_data.csv")
                 elif '.csv' in file.name:
                         df = pd.read_csv(file)
@@ -323,6 +328,12 @@ if selected == 'Home':
                             elif option == 'Scatter Plot':
                                 st.scatter_chart(df[list(columns)], x=list(columns)[0], y=list(columns)[1])
                             elif option == 'Pivot':
-                                "It will take first column as Index and Second column as Value"
-                                st.dataframe(df.pivot_table(values=columns[1], aggfunc='sum'))
-
+                                clms = st.multiselect("Select Columns", options=df.columns, default=df.columns)
+                                value = st.multiselect("Select Values", options=df.columns, default=df.columns)
+                                index = st.multiselect("Select Rows", options=df.columns, default=df.columns)
+                                agg = st.multiselect("Select  Agg function", options=['sum','count','mean','max','average'], default=['count'])
+                                if st.button('OK'):
+                                    pivot_data = df.pivot_table(values=value, index=index, columns=clms, aggfunc=agg)
+                                    st.dataframe(pivot_data, use_container_width=True)
+                            st.download_button('Download Data', data=df.to_csv(index=False).encode('utf-8'),
+                                               file_name="Formated_data.csv")
